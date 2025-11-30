@@ -1,53 +1,53 @@
-# Repositórios de Banco de Dados
+# Database Repositories
 
-Este diretório é onde você deve criar seus repositórios que implementam a interface `IRepository<T>`.
+This directory is where you should create your repositories that implement the `IRepository<T>` interface.
 
-## Como criar um repositório
+## How to create a repository
 
-Implemente a interface `IRepository<T>` diretamente:
+Implement the `IRepository<T>` interface directly:
 
 ```typescript
 import { IRepository } from "../../../core/types/IRepository";
 
-export class MeuRepository implements IRepository<MeuModel> {
-  constructor(private client: any) {} // Seu cliente de banco (Mongoose, Prisma, etc)
+export class MyRepository implements IRepository<MyModel> {
+  constructor(private client: any) {} // Your database client (Mongoose, Prisma, etc)
 
-  async findById(id: string): Promise<MeuModel | null> {
-    // Implementação usando seu ORM/ODM
+  async findById(id: string): Promise<MyModel | null> {
+    // Implementation using your ORM/ODM
   }
 
-  async findAll(): Promise<MeuModel[]> {
-    // Implementação
+  async findAll(): Promise<MyModel[]> {
+    // Implementation
   }
 
-  async create(data: Partial<MeuModel>): Promise<MeuModel> {
-    // Implementação
+  async create(data: Partial<MyModel>): Promise<MyModel> {
+    // Implementation
   }
 
-  async update(id: string, data: Partial<MeuModel>): Promise<MeuModel> {
-    // Implementação
+  async update(id: string, data: Partial<MyModel>): Promise<MyModel> {
+    // Implementation
   }
 
   async delete(id: string): Promise<boolean> {
-    // Implementação
+    // Implementation
   }
 
   async exists(id: string): Promise<boolean> {
-    // Implementação
+    // Implementation
   }
 }
 ```
 
-## Exemplo de uso em caso de uso
+## Example usage in use case
 
 ```typescript
-import { MeuRepository } from "../../../infrastructure/database/repositories/MeuRepository";
+import { MyRepository } from "../../../infrastructure/database/repositories/MyRepository";
 
-export class MeuUseCase {
-  private repository: MeuRepository;
+export class MyUseCase {
+  private repository: MyRepository;
 
   constructor(databaseClient: any) {
-    this.repository = new MeuRepository(databaseClient);
+    this.repository = new MyRepository(databaseClient);
   }
 
   async execute() {

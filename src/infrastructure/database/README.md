@@ -1,12 +1,12 @@
-# Banco de Dados - Estrutura Base
+# Database - Base Structure
 
-Esta pasta contém a estrutura base preparada para adicionar qualquer ORM/ODM de banco de dados.
+This folder contains the base structure prepared to add any ORM/ODM database.
 
-## 📋 Interfaces Disponíveis
+## 📋 Available Interfaces
 
 ### `IDatabaseClient`
 
-Interface base para qualquer cliente de banco de dados:
+Base interface for any database client:
 
 ```typescript
 export interface IDatabaseClient {
@@ -18,7 +18,7 @@ export interface IDatabaseClient {
 
 ### `IRepository<T>`
 
-Interface genérica para repositórios:
+Generic interface for repositories:
 
 ```typescript
 export interface IRepository<T> {
@@ -31,17 +31,17 @@ export interface IRepository<T> {
 }
 ```
 
-## 🚀 Como Adicionar um ORM/ODM
+## 🚀 How to Add an ORM/ODM
 
-### Exemplo: Mongoose (MongoDB)
+### Example: Mongoose (MongoDB)
 
-1. **Instalar dependências:**
+1. **Install dependencies:**
 
 ```bash
 npm install mongoose
 ```
 
-2. **Criar o Adapter:**
+2. **Create the Adapter:**
 
 ```typescript
 // src/infrastructure/database/MongooseClientAdapter.ts
@@ -59,12 +59,12 @@ export class MongooseClientAdapter implements IDatabaseClient {
 
   public async connect(): Promise<void> {
     if (!this.config.databaseUrl) {
-      console.warn("⚠️ DATABASE_URL não configurado");
+      console.warn("⚠️ DATABASE_URL not configured");
       return;
     }
     await mongoose.connect(this.config.databaseUrl);
     this.connected = true;
-    console.log("✅ Conectado ao MongoDB");
+    console.log("✅ Connected to MongoDB");
   }
 
   public async disconnect(): Promise<void> {
@@ -82,7 +82,7 @@ export class MongooseClientAdapter implements IDatabaseClient {
 }
 ```
 
-3. **Criar Schemas:**
+3. **Create Schemas:**
 
 ```typescript
 // src/infrastructure/database/models/Guild.ts
@@ -94,7 +94,7 @@ const guildSchema = new Schema(
     name: { type: String, required: true },
     settings: {
       prefix: { type: String, default: "!" },
-      language: { type: String, default: "pt-BR" },
+      language: { type: String, default: "en-US" },
     },
   },
   { timestamps: true }
@@ -103,7 +103,7 @@ const guildSchema = new Schema(
 export const GuildModel = mongoose.model("Guild", guildSchema);
 ```
 
-4. **Criar Repositório:**
+4. **Create Repository:**
 
 ```typescript
 // src/infrastructure/database/repositories/GuildRepository.ts
@@ -123,11 +123,11 @@ export class GuildRepository implements IRepository<any> {
     return GuildModel.create(data);
   }
 
-  // ... implementar outros métodos
+  // ... implement other methods
 }
 ```
 
-5. **Integrar no Bot.ts:**
+5. **Integrate in Bot.ts:**
 
 ```typescript
 import { MongooseClientAdapter } from "../../infrastructure/database/MongooseClientAdapter";
@@ -151,17 +151,17 @@ export class Bot extends Client {
 }
 ```
 
-### Exemplo: Prisma (SQL/NoSQL)
+### Example: Prisma (SQL/NoSQL)
 
-Siga o mesmo padrão, criando:
+Follow the same pattern, creating:
 
-- `PrismaClientAdapter` implementando `IDatabaseClient`
-- Repositórios implementando `IRepository<T>`
-- Schemas no `prisma/schema.prisma`
+- `PrismaClientAdapter` implementing `IDatabaseClient`
+- Repositories implementing `IRepository<T>`
+- Schemas in `prisma/schema.prisma`
 
-## 📝 Notas
+## 📝 Notes
 
-- Mantenha as interfaces em `core/types/` puras (sem dependências de frameworks)
-- Implemente os adapters em `infrastructure/database/`
-- Use casos de uso em `application/use-cases/database/` para lógica de negócio
-- A configuração `DATABASE_URL` já está disponível em `Config`
+- Keep interfaces in `core/types/` pure (no framework dependencies)
+- Implement adapters in `infrastructure/database/`
+- Use use cases in `application/use-cases/database/` for business logic
+- The `DATABASE_URL` configuration is already available in `Config`
