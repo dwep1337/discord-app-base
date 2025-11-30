@@ -12,6 +12,7 @@ export class Config implements IConfig {
   public readonly partials: number[];
   public readonly registerGuildCommands: boolean;
   public readonly testGuildId?: string;
+  public readonly databaseUrl?: string;
 
   private constructor() {
     this.token = process.env.DISCORD_TOKEN || "";
@@ -36,6 +37,7 @@ export class Config implements IConfig {
 
     this.registerGuildCommands = process.env.REGISTER_GUILD_COMMANDS === "true";
     this.testGuildId = process.env.TEST_GUILD_ID || undefined;
+    this.databaseUrl = process.env.DATABASE_URL || undefined;
   }
 
   public static getInstance(): Config {

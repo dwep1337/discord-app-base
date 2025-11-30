@@ -6,4 +6,4 @@ dist/
 .vscode/
 .idea/
 lavalink/logs/
-
+package-lock.json

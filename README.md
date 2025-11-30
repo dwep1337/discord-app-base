@@ -19,6 +19,7 @@ DISCORD_TOKEN=seu_token_aqui
 CLIENT_ID=seu_client_id_aqui
 REGISTER_GUILD_COMMANDS=false
 TEST_GUILD_ID=opcional
+DATABASE_URL=opcional (para quando adicionar um banco de dados)
 ```
 
 ## 📁 Estrutura
@@ -66,6 +67,12 @@ export default class MeuComando extends Command {
 - Discord.js 14.25.1
 - Clean Architecture
 - Node.js 18+
+
+## 🗄️ Banco de Dados
+
+O projeto está preparado para adicionar qualquer ORM/ODM (Prisma, Mongoose, TypeORM, etc).
+
+Veja `src/infrastructure/database/README.md` para instruções de como adicionar um banco de dados.
 
 ## 📄 Licença
 

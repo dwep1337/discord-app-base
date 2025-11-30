@@ -5,4 +5,5 @@ export interface IConfig {
   partials: number[];
   registerGuildCommands: boolean;
   testGuildId?: string;
+  databaseUrl?: string;
 }
